@@ -6,3 +6,89 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+
+  id        Int      @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  name      String
+  email     String   @unique
+  username  String   @unique
+  password  String
+  img       String
+  otpValue  String
+  otpExpiry DateTime
+  verified  Boolean  @default(false)
+  role      Role     @default(USER)
+
+}
+
+enum Role {
+
+  OWNER
+  ADMIN
+  MODERATOR
+  UPLOADER
+  USER
+
+}
+
+enum SeasonsOfYear {
+
+  WINTER
+  SPRING
+  SUMMER
+  FALL
+
+}
+
+enum Genre {
+
+  ACTION
+  ADVENTURE
+  AVANT_GARDE
+  BOYS_LOVE
+  CARS
+  COMEDY
+  DEMENTIA
+  DEMONS
+  DRAMA
+  ECCHI
+  FANTASY
+  GAME
+  GENDER_BENDER
+  GIRLS_LOVE
+  GOURMET
+  HAREM
+  HISTORICAL
+  HORROR
+  JOSEI
+  KIDS
+  MAGIC
+  MARTIAL_ARTS
+  MECCHA
+  MILITARY
+  MUSIC
+  MYSTERY
+  PARODY
+  POLICE
+  PSYCHOLOGICAL
+  ROMANCE
+  SAMURAI
+  SCHOOL
+  SCI_FI
+  SEINEN
+  SHOUJO
+  SHOUJO_AI
+  SHOUNEN
+  SLICE_OF_LIFE
+  SPACE
+  SPORTS
+  SUPER_POWER
+  SUPERNATURAL
+  SUSPENSE
+  THRILLER
+  VAMPIRE
+
+}
