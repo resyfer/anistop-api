@@ -18,6 +18,7 @@ const app = express();
 //------------------------- ROUTERS -------------------------
 
 import authRouter from "@routes/auth";
+import otpRouter from "@routes/otp";
 
 //-------------------------END OF IMPORTS------------------------
 
@@ -45,6 +46,9 @@ app
 //-------------------------END OF MIDDLEWARES------------------------
 
 app.use(`${ROOT}/auth`, authRouter);
+app.use(`${ROOT}/otp`, otpRouter);
+
+//-------------------------END OF ROUTERS------------------------
 
 app.get("/", (_: Request, res: Response) => {
   res.json({ status: true });
