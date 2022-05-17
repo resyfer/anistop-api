@@ -1,22 +1,30 @@
 import dotenv from "dotenv";
 import cors from "cors";
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieSession from "cookie-session";
 import passport from "passport";
 
+import { COOKIE_MAX_AGE, ROOT } from "@globals/constants";
+import { initializePassport } from "@utils/passport";
+
 dotenv.config();
+initializePassport();
 
 const app = express();
+
+//------------------------- ROUTERS -------------------------
+
+import authRouter from "@routes/auth";
 
 //-------------------------END OF IMPORTS------------------------
 
 app
   .use(
     cors({
-      origin: process.env.CLIENT as string,
+      origin: process.env.CLIENT!,
       credentials: true,
     })
   )
@@ -27,8 +35,8 @@ app
   .use(express.urlencoded({ extended: true }))
   .use(
     cookieSession({
-      maxAge: 1000 * 60 * 60 * 24 * 30,
-      keys: [process.env.SECRET as string],
+      maxAge: COOKIE_MAX_AGE,
+      keys: [process.env.SECRET!],
     })
   )
   .use(passport.initialize())
@@ -36,7 +44,9 @@ app
 
 //-------------------------END OF MIDDLEWARES------------------------
 
-app.get("/", (_, res) => {
+app.use(`${ROOT}/auth`, authRouter);
+
+app.get("/", (_: Request, res: Response) => {
   res.json({ status: true });
 });
 
