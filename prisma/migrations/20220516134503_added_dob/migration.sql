@@ -1,0 +1,30 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('OWNER', 'ADMIN', 'MODERATOR', 'UPLOADER', 'USER');
+
+-- CreateEnum
+CREATE TYPE "SeasonsOfYear" AS ENUM ('WINTER', 'SPRING', 'SUMMER', 'FALL');
+
+-- CreateEnum
+CREATE TYPE "Genre" AS ENUM ('ACTION', 'ADVENTURE', 'AVANT_GARDE', 'BOYS_LOVE', 'CARS', 'COMEDY', 'DEMENTIA', 'DEMONS', 'DRAMA', 'ECCHI', 'FANTASY', 'GAME', 'GENDER_BENDER', 'GIRLS_LOVE', 'GOURMET', 'HAREM', 'HISTORICAL', 'HORROR', 'JOSEI', 'KIDS', 'MAGIC', 'MARTIAL_ARTS', 'MECCHA', 'MILITARY', 'MUSIC', 'MYSTERY', 'PARODY', 'POLICE', 'PSYCHOLOGICAL', 'ROMANCE', 'SAMURAI', 'SCHOOL', 'SCI_FI', 'SEINEN', 'SHOUJO', 'SHOUJO_AI', 'SHOUNEN', 'SLICE_OF_LIFE', 'SPACE', 'SPORTS', 'SUPER_POWER', 'SUPERNATURAL', 'SUSPENSE', 'THRILLER', 'VAMPIRE');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "img" TEXT NOT NULL,
+    "otpValue" TEXT NOT NULL,
+    "otpExpiry" TIMESTAMP(3) NOT NULL,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
+    "role" "Role" NOT NULL DEFAULT E'USER',
+    "dob" TIMESTAMP(3) NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
