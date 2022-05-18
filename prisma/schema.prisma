@@ -9,7 +9,7 @@ datasource db {
 
 model User {
 
-  id        Int      @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
   name      String
@@ -23,6 +23,99 @@ model User {
   role      Role     @default(USER)
   dob       DateTime
 
+  ratings UserRating[]
+  views   View[]
+}
+
+model Anime {
+
+  id               Int      @id @default(autoincrement())
+  englishName      String
+  japaneseName     String
+  description      String
+  posterUrl        String
+  backgroundImgUrl String
+  genres           Genre[]
+  country          Country
+  keywords         String[]
+  status           Status
+
+  seasons Season[]
+
+}
+
+model Season {
+
+  id          Int         @id @default(autoincrement())
+  name        String
+  seasontype  SeasonType
+  episodeType EpisodeType
+  views       Int         @default(0)
+
+  anime   Anime @relation(fields: [animeId], references: [id])
+  animeId Int
+
+  studios      Studio[]
+  animeSeasons AnimeSeason[]
+  episodes     Episode[]
+
+  ratings UserRating[]
+}
+
+model Episode {
+
+  id   Int    @id @default(autoincrement())
+  name String
+
+  season   Season @relation(fields: [seasonId], references: [id])
+  seasonId Int
+
+  views View[]
+
+}
+
+model AnimeSeason {
+
+  id           Int          @id @default(autoincrement())
+  seasonOfYear SeasonOfYear
+  year         Int
+
+  seasons Season[]
+
+}
+
+model Studio {
+
+  id      Int    @id @default(autoincrement())
+  name    String
+  logoUrl String
+
+  seasons Season[]
+
+}
+
+model UserRating {
+
+  id     Int @id @default(autoincrement())
+  rating Int
+
+  rater  User   @relation(fields: [userEmail], references: [email])
+  season Season @relation(fields: [seasonId], references: [id])
+
+  userEmail String
+  seasonId  Int
+}
+
+model View {
+
+  id Int @id @default(autoincrement())
+
+  viewer   User @relation(fields: [viewerId], references: [id])
+  viewerId Int
+
+  episode   Episode @relation(fields: [episodeId], references: [id])
+  episodeId Int
+
 }
 
 enum Role {
@@ -35,7 +128,7 @@ enum Role {
 
 }
 
-enum SeasonsOfYear {
+enum SeasonOfYear {
 
   WINTER
   SPRING
@@ -91,5 +184,38 @@ enum Genre {
   SUSPENSE
   THRILLER
   VAMPIRE
+
+}
+
+enum SeasonType {
+
+  TV_SERIES
+  MOVIE
+  SPECIAL
+  OVA
+  ONA
+
+}
+
+enum EpisodeType {
+
+  SUB
+  DUB
+
+}
+
+enum Status {
+
+  UPCOMING
+  ONGOING
+  COMPLETED
+
+}
+
+enum Country {
+
+  JAPAN
+  CHINA
+  KOREA
 
 }
