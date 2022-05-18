@@ -30,15 +30,15 @@ model User {
 model Anime {
 
   id               Int      @id @default(autoincrement())
-  englishName      String
-  japaneseName     String
+  englishName      String   @unique
+  japaneseName     String   @unique
   description      String
   posterUrl        String
   backgroundImgUrl String
   genres           Genre[]
   country          Country
   keywords         String[]
-  status           Status
+  status           Status   @default(UPCOMING)
 
   seasons Season[]
 
