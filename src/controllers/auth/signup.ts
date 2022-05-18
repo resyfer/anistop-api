@@ -47,7 +47,7 @@ async function signup(req: Request, res: Response) {
         password: await hash(password),
         dob: new Date(dob),
         img: img ?? defaultProfilePic(name),
-        otpValue: value!,
+        otpValue: value,
         otpExpiry: expiry,
         role: "USER",
       },

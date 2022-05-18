@@ -1,3 +1,5 @@
+import { Role } from "@prisma/client";
+
 interface signUpBody {
   name: string;
   email: string;
@@ -7,4 +9,9 @@ interface signUpBody {
   img: string | undefined;
 }
 
-export { signUpBody };
+interface elevateLevel {
+  identifier: string;
+  level: Role;
+}
+
+export { signUpBody, elevateLevel };

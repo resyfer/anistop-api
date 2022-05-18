@@ -11,6 +11,7 @@ const wrongPassword = error("Wrong password.");
 const userNotLoggedIn = error("User not logged in.");
 const userAlreadyLoggedIn = error("User already logged in.");
 const userNotVerified = error("User Not Verified.");
+const unauthorizedAcccess = error("Unauthorized access.");
 
 export {
   userExists,
@@ -22,4 +23,5 @@ export {
   userNotLoggedIn,
   userAlreadyLoggedIn,
   userNotVerified,
+  unauthorizedAcccess,
 };

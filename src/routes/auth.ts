@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import { loginErrors, isLoggedIn, isNotLoggedIn } from "@middlewares/auth";
-import { login, signout, signup } from "@controllers/auth";
+import { elevate, login, signout, signup } from "@controllers/auth";
 
 const router = express.Router({ mergeParams: true });
 
@@ -14,5 +14,6 @@ router.post(
 );
 router.post("/signup", isNotLoggedIn, signup);
 router.post("/signout", isLoggedIn, signout);
+router.post("/elevate", isLoggedIn, elevate);
 
 export default router;

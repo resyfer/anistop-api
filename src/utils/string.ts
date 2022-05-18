@@ -38,4 +38,11 @@ function removeWhitespace(text: string) {
   return text.split(" ").join("");
 }
 
-export { getRandomChar, newHashString, removeWhitespace };
+/**
+ * @description Converts a string to capital case
+ */
+function toCapitalCase(text: string) {
+  return text.charAt(0).toUpperCase() + text.substring(1).toLowerCase();
+}
+
+export { getRandomChar, newHashString, removeWhitespace, toCapitalCase };
