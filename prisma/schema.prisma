@@ -6,3 +6,216 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  name      String
+  email     String   @unique
+  username  String   @unique
+  password  String
+  img       String
+  otpValue  String
+  otpExpiry DateTime
+  verified  Boolean  @default(false)
+  role      Role     @default(USER)
+  dob       DateTime
+
+  ratings UserRating[]
+  views   View[]
+}
+
+model Anime {
+
+  id               Int      @id @default(autoincrement())
+  englishName      String
+  japaneseName     String
+  description      String
+  posterUrl        String
+  backgroundImgUrl String
+  genres           Genre[]
+  country          Country
+  keywords         String[]
+  status           Status
+
+  seasons Season[]
+
+}
+
+model Season {
+
+  id          Int         @id @default(autoincrement())
+  name        String
+  seasontype  SeasonType
+  episodeType EpisodeType
+  views       Int         @default(0)
+
+  anime   Anime @relation(fields: [animeId], references: [id])
+  animeId Int
+
+  studios      Studio[]
+  animeSeasons AnimeSeason[]
+  episodes     Episode[]
+
+  ratings UserRating[]
+}
+
+model Episode {
+
+  id   Int    @id @default(autoincrement())
+  name String
+
+  season   Season @relation(fields: [seasonId], references: [id])
+  seasonId Int
+
+  views View[]
+
+}
+
+model AnimeSeason {
+
+  id           Int          @id @default(autoincrement())
+  seasonOfYear SeasonOfYear
+  year         Int
+
+  seasons Season[]
+
+}
+
+model Studio {
+
+  id      Int    @id @default(autoincrement())
+  name    String
+  logoUrl String
+
+  seasons Season[]
+
+}
+
+model UserRating {
+
+  id     Int @id @default(autoincrement())
+  rating Int
+
+  rater  User   @relation(fields: [userEmail], references: [email])
+  season Season @relation(fields: [seasonId], references: [id])
+
+  userEmail String
+  seasonId  Int
+}
+
+model View {
+
+  id Int @id @default(autoincrement())
+
+  viewer   User @relation(fields: [viewerId], references: [id])
+  viewerId Int
+
+  episode   Episode @relation(fields: [episodeId], references: [id])
+  episodeId Int
+
+}
+
+enum Role {
+
+  OWNER
+  ADMIN
+  MODERATOR
+  UPLOADER
+  USER
+
+}
+
+enum SeasonOfYear {
+
+  WINTER
+  SPRING
+  SUMMER
+  FALL
+
+}
+
+enum Genre {
+
+  ACTION
+  ADVENTURE
+  AVANT_GARDE
+  BOYS_LOVE
+  CARS
+  COMEDY
+  DEMENTIA
+  DEMONS
+  DRAMA
+  ECCHI
+  FANTASY
+  GAME
+  GENDER_BENDER
+  GIRLS_LOVE
+  GOURMET
+  HAREM
+  HISTORICAL
+  HORROR
+  JOSEI
+  KIDS
+  MAGIC
+  MARTIAL_ARTS
+  MECCHA
+  MILITARY
+  MUSIC
+  MYSTERY
+  PARODY
+  POLICE
+  PSYCHOLOGICAL
+  ROMANCE
+  SAMURAI
+  SCHOOL
+  SCI_FI
+  SEINEN
+  SHOUJO
+  SHOUJO_AI
+  SHOUNEN
+  SLICE_OF_LIFE
+  SPACE
+  SPORTS
+  SUPER_POWER
+  SUPERNATURAL
+  SUSPENSE
+  THRILLER
+  VAMPIRE
+
+}
+
+enum SeasonType {
+
+  TV_SERIES
+  MOVIE
+  SPECIAL
+  OVA
+  ONA
+
+}
+
+enum EpisodeType {
+
+  SUB
+  DUB
+
+}
+
+enum Status {
+
+  UPCOMING
+  ONGOING
+  COMPLETED
+
+}
+
+enum Country {
+
+  JAPAN
+  CHINA
+  KOREA
+
+}
