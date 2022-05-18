@@ -52,7 +52,7 @@ model Season {
   episodeType EpisodeType
   views       Int         @default(0)
 
-  anime   Anime @relation(fields: [animeId], references: [id])
+  anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
 
   studios      Studio[]
@@ -67,7 +67,7 @@ model Episode {
   id   Int    @id @default(autoincrement())
   name String
 
-  season   Season @relation(fields: [seasonId], references: [id])
+  season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId Int
 
   views View[]
@@ -99,8 +99,8 @@ model UserRating {
   id     Int @id @default(autoincrement())
   rating Int
 
-  rater  User   @relation(fields: [userEmail], references: [email])
-  season Season @relation(fields: [seasonId], references: [id])
+  rater  User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
 
   userEmail String
   seasonId  Int
@@ -110,10 +110,10 @@ model View {
 
   id Int @id @default(autoincrement())
 
-  viewer   User @relation(fields: [viewerId], references: [id])
+  viewer   User @relation(fields: [viewerId], references: [id], onDelete: Cascade)
   viewerId Int
 
-  episode   Episode @relation(fields: [episodeId], references: [id])
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
   episodeId Int
 
 }

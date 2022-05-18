@@ -1,4 +1,4 @@
-import { Country, Genre } from "@prisma/client";
+import { Country, Genre, Status } from "@prisma/client";
 
 interface addAnimeBody {
   englishName: string;
@@ -18,6 +18,7 @@ interface updateAnimeBody {
   keywords?: string[];
   posterUrl?: string;
   backgroundImgUrl?: string;
+  status?: Status;
 }
 
 export { addAnimeBody, updateAnimeBody };

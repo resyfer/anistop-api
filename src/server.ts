@@ -19,6 +19,7 @@ const app = express();
 
 import authRouter from "@routes/auth";
 import otpRouter from "@routes/otp";
+import animeRouter from "@routes/anime";
 
 //-------------------------END OF IMPORTS------------------------
 
@@ -47,6 +48,7 @@ app
 
 app.use(`${ROOT}/auth`, authRouter);
 app.use(`${ROOT}/otp`, otpRouter);
+app.use(`${ROOT}/anime`, animeRouter);
 
 //-------------------------END OF ROUTERS------------------------
 

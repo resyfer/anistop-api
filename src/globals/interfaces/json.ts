@@ -3,9 +3,9 @@ interface JSONError {
   error: string;
 }
 
-interface JSONSuccess {
+interface JSONSuccess<T> {
   success: true;
-  message: string;
+  message: T;
 }
 
 export { JSONError, JSONSuccess };

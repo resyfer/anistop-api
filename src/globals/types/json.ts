@@ -1,5 +1,5 @@
 import { JSONError, JSONSuccess } from "@interfaces/json";
 
-type JSONResponse = JSONError | JSONSuccess;
+type JSONResponse<T = string> = JSONError | JSONSuccess<T>;
 
 export { JSONResponse };
