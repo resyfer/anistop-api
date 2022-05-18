@@ -1,6 +1,12 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { error } from "@errors/error";
-import { userAlreadyLoggedIn, userNotLoggedIn } from "@errors/auth";
+import {
+  unauthorizedAcccess,
+  userAlreadyLoggedIn,
+  userNotLoggedIn,
+} from "@errors/auth";
+import { Role, User } from "@prisma/client";
+import { levelIndex } from "@utils/levelIndex";
 
 /**
  * @description Catch the errors of passport
@@ -33,4 +39,34 @@ function isNotLoggedIn(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { loginErrors, isLoggedIn, isNotLoggedIn };
+/**
+ * @description Middleware for checking if user
+ * has clearance to access a route.
+ *
+ * Usage is:
+ *
+ * ```ts
+ *  router.use(minPermission());
+ * ```
+ *
+ * or,
+ *
+ * ```ts
+ *  router.use(minPermission("OWNER"));
+ * ```
+ *
+ * @param level
+ *
+ */
+function minPermission(level: Role = "UPLOADER") {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const roleIndex = levelIndex((req.user as User).role);
+    if (roleIndex < levelIndex(level)) {
+      return res.json(unauthorizedAcccess);
+    } else {
+      return next();
+    }
+  };
+}
+
+export { loginErrors, isLoggedIn, isNotLoggedIn, minPermission };
