@@ -22,6 +22,7 @@ import otpRouter from "@routes/otp";
 import animeRouter from "@routes/anime";
 import seasonRouter from "@routes/season";
 import studioRouter from "@routes/studio";
+import animeSeasonRouter from "@routes/animeSeason";
 
 //-------------------------END OF IMPORTS------------------------
 
@@ -53,6 +54,7 @@ app.use(`${ROOT}/otp`, otpRouter);
 app.use(`${ROOT}/anime`, animeRouter);
 app.use(`${ROOT}/season`, seasonRouter);
 app.use(`${ROOT}/studio`, studioRouter);
+app.use(`${ROOT}/anime_season`, animeSeasonRouter);
 
 //-------------------------END OF ROUTERS------------------------
 

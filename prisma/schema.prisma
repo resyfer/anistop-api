@@ -82,6 +82,7 @@ model AnimeSeason {
 
   seasons Season[]
 
+  @@unique([seasonOfYear, year])
 }
 
 model Studio {
