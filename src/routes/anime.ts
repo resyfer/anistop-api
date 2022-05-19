@@ -7,7 +7,11 @@ import {
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import express from "express";
 
+import seasonRouter from "@routes/season";
+
 const router = express.Router();
+
+router.use("/", seasonRouter);
 
 router.post("/add", isLoggedIn, minPermission(), addAnime);
 router.get("/:animeId", getAnime);

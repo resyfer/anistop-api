@@ -48,7 +48,7 @@ model Season {
 
   id          Int         @id @default(autoincrement())
   name        String
-  seasontype  SeasonType
+  seasonType  SeasonType
   episodeType EpisodeType
   views       Int         @default(0)
 
@@ -58,8 +58,9 @@ model Season {
   studios      Studio[]
   animeSeasons AnimeSeason[]
   episodes     Episode[]
+  ratings      UserRating[]
 
-  ratings UserRating[]
+  @@unique([name, animeId])
 }
 
 model Episode {
