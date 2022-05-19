@@ -1,9 +1,25 @@
-import { addSeason } from "@controllers/season";
+import {
+  addSeason,
+  deleteSeason,
+  getSeason,
+  getSeasonsByAnime,
+  updateSeason,
+} from "@controllers/season";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import express from "express";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.post("/:animeId/add", isLoggedIn, minPermission("UPLOADER"), addSeason);
+router.post("/add", isLoggedIn, minPermission("UPLOADER"), addSeason);
+router.get("/all", getSeasonsByAnime);
+
+router.get("/:seasonId", getSeason);
+router.patch("/:seasonId", isLoggedIn, minPermission("UPLOADER"), updateSeason);
+router.delete(
+  "/:seasonId",
+  isLoggedIn,
+  minPermission("MODERATOR"),
+  deleteSeason
+);
 
 export default router;

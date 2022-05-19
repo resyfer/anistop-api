@@ -9,11 +9,12 @@ import express from "express";
 
 import seasonRouter from "@routes/season";
 
-const router = express.Router();
-
-router.use("/", seasonRouter);
+const router = express.Router({ mergeParams: true });
 
 router.post("/add", isLoggedIn, minPermission(), addAnime);
+
+router.use("/:animeId", seasonRouter);
+
 router.get("/:animeId", getAnime);
 router.patch("/:animeId", isLoggedIn, minPermission("MODERATOR"), updateAnime);
 router.delete("/:animeId", isLoggedIn, minPermission("MODERATOR"), deleteAnime);

@@ -1,10 +1,10 @@
 import { animeNotFound, wrongAnimeId } from "@errors/anime";
+import { animeSeasonNotFound } from "@errors/animeSeason";
 import {
-  animeSeasonExists,
-  animeSeasonNotFound,
   episodeTypeIncorrect,
+  seasonExists,
   seasonTypeIncorrect,
-} from "@errors/animeSeason";
+} from "@errors/season";
 import { studioNotFound } from "@errors/studio";
 import { serverError } from "@errors/system";
 import { ANIME_SEASONS } from "@globals/constants";
@@ -37,7 +37,7 @@ async function addSeason(req: Request, res: Response) {
 
     // Season Check
     if ((await prisma.season.count({ where: { name, animeId: id } })) !== 0) {
-      return res.json(animeSeasonExists);
+      return res.json(seasonExists);
     }
 
     // Check for Episode Type
@@ -57,8 +57,6 @@ async function addSeason(req: Request, res: Response) {
         prisma.studio.count({ where: { name: studios[i] } })
       );
     }
-
-    console.log(studioCheckPromises);
 
     const studioExistence = await Promise.all(studioCheckPromises);
     if (studioExistence.indexOf(0) !== -1) {
@@ -108,7 +106,7 @@ async function addSeason(req: Request, res: Response) {
       });
     }
 
-    const season = await prisma.season.create({
+    await prisma.season.create({
       data: {
         name,
         seasonType,
@@ -126,8 +124,6 @@ async function addSeason(req: Request, res: Response) {
         },
       },
     });
-
-    console.log(season);
 
     return res.json(seasonCreated);
   } catch (err) {

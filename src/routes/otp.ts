@@ -2,7 +2,7 @@ import express from "express";
 import { newOtp, verifyOtp } from "@controllers/otp";
 import { isNotLoggedIn } from "@middlewares/auth";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.post("/verify", isNotLoggedIn, verifyOtp);
 router.post("/new", isNotLoggedIn, newOtp);

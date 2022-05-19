@@ -38,7 +38,6 @@ model Anime {
   genres           Genre[]
   country          Country
   keywords         String[]
-  status           Status   @default(UPCOMING)
 
   seasons Season[]
 
@@ -51,6 +50,7 @@ model Season {
   seasonType  SeasonType
   episodeType EpisodeType
   views       Int         @default(0)
+  status      Status      @default(UPCOMING)
 
   anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
