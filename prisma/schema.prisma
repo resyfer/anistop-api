@@ -65,14 +65,18 @@ model Season {
 
 model Episode {
 
-  id   Int    @id @default(autoincrement())
-  name String
+  id        Int    @id @default(autoincrement())
+  name      String
+  number    Int
+  videoUrl  String
+  viewCount Int    @default(0)
 
   season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId Int
 
   views View[]
 
+  @@unique([number, seasonId])
 }
 
 model AnimeSeason {
