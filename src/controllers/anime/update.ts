@@ -15,7 +15,6 @@ async function updateAnime(req: Request, res: Response) {
       country,
       posterUrl,
       backgroundImgUrl,
-      status,
     } = req.body as updateAnimeBody;
 
     const id = parseInt(animeId);
@@ -39,7 +38,6 @@ async function updateAnime(req: Request, res: Response) {
         country,
         posterUrl,
         backgroundImgUrl,
-        status,
       },
     });
 
