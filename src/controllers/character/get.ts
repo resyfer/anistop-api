@@ -73,6 +73,13 @@ async function getCharactersByAnime(req: Request, res: Response) {
       where: {
         animeId,
       },
+      include: {
+        _count: {
+          select: {
+            characterFavorites: true,
+          },
+        },
+      },
     });
 
     return res.json({
