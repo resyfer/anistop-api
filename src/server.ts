@@ -9,9 +9,11 @@ import passport from "passport";
 
 import { COOKIE_MAX_AGE, ROOT } from "@globals/constants";
 import { initializePassport } from "@utils/passport";
+import { initializeMulter } from "@utils/uploaad";
 
 dotenv.config();
 initializePassport();
+initializeMulter();
 
 const app = express();
 
