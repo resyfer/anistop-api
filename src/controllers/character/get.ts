@@ -35,6 +35,13 @@ async function getCharacter(req: Request, res: Response) {
       where: {
         id: characterId,
       },
+      include: {
+        _count: {
+          select: {
+            characterFavorites: true,
+          },
+        },
+      },
     });
 
     return res.json({
@@ -65,6 +72,13 @@ async function getCharactersByAnime(req: Request, res: Response) {
     const characters = await prisma.character.findMany({
       where: {
         animeId,
+      },
+      include: {
+        _count: {
+          select: {
+            characterFavorites: true,
+          },
+        },
       },
     });
 
