@@ -17,7 +17,7 @@ router.post("/add", isLoggedIn, minPermission("UPLOADER"), addSeason);
 router.get("/all", getSeasonsByAnime);
 router.get("/:seasonId/status", isLoggedIn, getEpisodeViewStatus);
 
-router.use("/:seasonId", episodeRouter);
+router.use("/:seasonId/episode", episodeRouter);
 
 router.get("/:seasonId", getSeason);
 router.patch("/:seasonId", isLoggedIn, minPermission("UPLOADER"), updateSeason);

@@ -25,6 +25,8 @@ model User {
 
   ratings UserRating[]
   views   View[]
+
+  characterFavorites CharacterFavorites[]
 }
 
 model Anime {
@@ -39,7 +41,8 @@ model Anime {
   country          Country
   keywords         String[]
 
-  seasons Season[]
+  seasons    Season[]
+  characters Character[]
 
 }
 
@@ -121,6 +124,48 @@ model View {
 
   episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
   episodeId Int
+
+}
+
+model Character {
+
+  id Int @id @default(autoincrement())
+
+  name        String
+  imgUrl      String
+  description String
+  pictures    String[]
+
+  vas     VA[]
+  anime   Anime @relation(fields: [animeId], references: [id])
+  animeId Int
+
+  characterFavorites CharacterFavorites[]
+
+  @@unique([name, animeId])
+}
+
+model VA {
+
+  id Int @id @default(autoincrement())
+
+  name   String   @unique
+  dob    DateTime
+  more   String
+  imgUrl String
+
+  characters Character[]
+}
+
+model CharacterFavorites {
+
+  id Int @id @default(autoincrement())
+
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
 }
 
