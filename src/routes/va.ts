@@ -2,7 +2,7 @@ import { addVA, deleteVA, getVA, updateVA, updateVAImg } from "@controllers/va";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import express from "express";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.post("/add", isLoggedIn, minPermission("UPLOADER"), addVA);
 router.get("/:vaId", getVA);

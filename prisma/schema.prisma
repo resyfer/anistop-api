@@ -142,6 +142,7 @@ model Character {
 
   characterFavorites CharacterFavorites[]
 
+  @@unique([name, animeId])
 }
 
 model VA {
