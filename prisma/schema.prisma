@@ -108,11 +108,14 @@ model UserRating {
   id     Int @id @default(autoincrement())
   rating Int
 
-  rater  User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
-  season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  rater  User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 
-  userEmail String
-  seasonId  Int
+  season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  seasonId Int
+
+
+  @@unique([userId, seasonId])
 }
 
 model View {
