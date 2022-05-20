@@ -2,6 +2,7 @@ import { animeExists } from "@errors/anime";
 import { serverError } from "@errors/system";
 import { addAnimeBody } from "@interfaces/anime";
 import { animeCreated } from "@success/anime";
+import { defaultProfilePic } from "@utils/img";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
 
@@ -14,8 +15,6 @@ async function addAnime(req: Request, res: Response) {
       genres,
       country,
       keywords,
-      posterUrl,
-      backgroundImgUrl,
     } = req.body as addAnimeBody;
 
     // Check anime exists
@@ -36,8 +35,8 @@ async function addAnime(req: Request, res: Response) {
         genres,
         country,
         keywords,
-        posterUrl,
-        backgroundImgUrl,
+        posterUrl: defaultProfilePic(englishName),
+        backgroundImgUrl: defaultProfilePic(englishName),
       },
     });
 

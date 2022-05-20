@@ -7,4 +7,13 @@ const OTP_AGE = 1000 * 60 * 5; // 5 mins
 const ROOT = "/api/v1";
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 30; //30 Days
 
-export { ROLES, OTP_AGE, ROOT, COOKIE_MAX_AGE, ANIME_SEASONS };
+const FILE_UPLOAD_LIMIT = 1024 * 1024 * 5; // 5 MB
+
+export {
+  ROLES,
+  OTP_AGE,
+  ROOT,
+  COOKIE_MAX_AGE,
+  ANIME_SEASONS,
+  FILE_UPLOAD_LIMIT,
+};

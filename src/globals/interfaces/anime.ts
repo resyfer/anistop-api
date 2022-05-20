@@ -7,8 +7,6 @@ interface addAnimeBody {
   genres: Genre[];
   country: Country;
   keywords: string[];
-  posterUrl: string;
-  backgroundImgUrl: string;
 }
 
 interface updateAnimeBody {
