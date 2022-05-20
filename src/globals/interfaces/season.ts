@@ -1,4 +1,10 @@
-import { EpisodeType, SeasonOfYear, SeasonType, Status } from "@prisma/client";
+import {
+  EpisodeType,
+  SeasonOfYear,
+  SeasonType,
+  Status,
+  Season,
+} from "@prisma/client";
 
 interface seasonAddBody {
   name: string;
@@ -27,9 +33,27 @@ interface animeSeasonConnectionOption {
   };
 }
 
+interface updateRatingBody {
+  rating: number;
+}
+
+interface ratingPromise {
+  _sum: {
+    rating: number | null;
+  };
+  _count: {
+    rating: number;
+  };
+}
+
+interface seasonData extends ratingPromise, Season {}
+
 export {
   seasonAddBody,
   seasonUpdateBody,
   studioConnectionOption,
   animeSeasonConnectionOption,
+  updateRatingBody,
+  ratingPromise,
+  seasonData,
 };

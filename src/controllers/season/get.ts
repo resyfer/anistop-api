@@ -1,7 +1,8 @@
 import { animeNotFound, wrongAnimeId } from "@errors/anime";
 import { seasonNotFound, wrongSeasonId } from "@errors/season";
 import { serverError } from "@errors/system";
-import { Season, User, View } from "@prisma/client";
+import { ratingPromise, seasonData } from "@interfaces/season";
+import { User, View } from "@prisma/client";
 import { JSONResponse } from "@repo-types/json";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
@@ -39,6 +40,18 @@ async function getSeason(req: Request, res: Response) {
       },
     });
 
+    const rating = await prisma.userRating.aggregate({
+      where: {
+        seasonId,
+      },
+      _sum: {
+        rating: true,
+      },
+      _count: {
+        rating: true,
+      },
+    });
+
     await prisma.season.update({
       where: {
         id: seasonId,
@@ -52,8 +65,11 @@ async function getSeason(req: Request, res: Response) {
 
     return res.json({
       success: true,
-      message: season,
-    } as JSONResponse<Season>);
+      message: {
+        ...season,
+        ...rating,
+      },
+    } as JSONResponse<seasonData>);
   } catch (err) {
     console.log(err);
     return res.json(serverError);
@@ -79,12 +95,41 @@ async function getSeasonsByAnime(req: Request, res: Response) {
       where: {
         animeId: id,
       },
+      orderBy: {
+        id: "asc",
+      },
     });
+
+    const seasonRatingCount: Promise<ratingPromise>[] = [];
+    for (let i = 0; i < seasons.length; i++) {
+      seasonRatingCount.push(
+        prisma.userRating.aggregate({
+          where: {
+            seasonId: seasons[i].id,
+          },
+          _sum: {
+            rating: true,
+          },
+          _count: {
+            rating: true,
+          },
+        })
+      );
+    }
+
+    const seasonValues = await Promise.all(seasonRatingCount);
+    const seasonsData: seasonData[] = [];
+    for (let i = 0; i < seasonValues.length; i++) {
+      seasonsData.push({
+        ...seasons[i],
+        ...seasonValues[i],
+      });
+    }
 
     return res.json({
       success: true,
-      message: seasons,
-    } as JSONResponse<Season[]>);
+      message: seasonsData,
+    } as JSONResponse<seasonData[]>);
   } catch (err) {
     console.log(err);
     return res.json(serverError);
