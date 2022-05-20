@@ -35,6 +35,13 @@ async function getCharacter(req: Request, res: Response) {
       where: {
         id: characterId,
       },
+      include: {
+        _count: {
+          select: {
+            characterFavorites: true,
+          },
+        },
+      },
     });
 
     return res.json({

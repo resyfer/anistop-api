@@ -26,7 +26,7 @@ model User {
   ratings UserRating[]
   views   View[]
 
-  characterFavorites CharacterFavorites[]
+  characterFavorites CharacterFavorite[]
 }
 
 model Anime {
@@ -137,10 +137,10 @@ model Character {
   pictures    String[]
 
   vas     VA[]
-  anime   Anime @relation(fields: [animeId], references: [id])
+  anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
   animeId Int
 
-  characterFavorites CharacterFavorites[]
+  characterFavorites CharacterFavorite[]
 
   @@unique([name, animeId])
 }
@@ -157,16 +157,18 @@ model VA {
   characters Character[]
 }
 
-model CharacterFavorites {
+model CharacterFavorite {
 
   id Int @id @default(autoincrement())
 
-  character   Character @relation(fields: [characterId], references: [id])
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId Int
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
+
+  @@unique([characterId, userId])
 }
 
 enum Role {

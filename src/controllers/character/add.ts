@@ -1,6 +1,7 @@
 import { animeNotFound, wrongAnimeId } from "@errors/anime";
 import { characterExists } from "@errors/character";
 import { serverError } from "@errors/system";
+import { vaNotFound } from "@errors/va";
 import { addCharacterBody } from "@interfaces/character";
 import { characterCreated } from "@success/character";
 import { defaultProfilePic } from "@utils/img";
@@ -10,7 +11,7 @@ import { Request, Response } from "express";
 async function addCharacter(req: Request, res: Response) {
   try {
     const { animeId } = req.params;
-    const { name, description } = req.body as addCharacterBody;
+    const { name, description, vas } = req.body as addCharacterBody;
 
     const id = parseInt(animeId);
 
@@ -30,6 +31,23 @@ async function addCharacter(req: Request, res: Response) {
       return res.json(characterExists);
     }
 
+    // Check VAs
+    const vaCheckPromises: Promise<number>[] = [];
+    for (let i = 0; i < vas.length; i++) {
+      vaCheckPromises.push(
+        prisma.vA.count({
+          where: { name: vas[i].name },
+        })
+      );
+    }
+
+    const vaCheckResults = await Promise.all(vaCheckPromises);
+    if (vaCheckResults.indexOf(0) !== -1) {
+      return res.json(vaNotFound);
+    }
+
+    // VA Options
+
     await prisma.character.create({
       data: {
         name,
@@ -40,6 +58,9 @@ async function addCharacter(req: Request, res: Response) {
           connect: {
             id,
           },
+        },
+        vas: {
+          connect: vas,
         },
       },
     });
