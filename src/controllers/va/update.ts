@@ -1,5 +1,4 @@
 import { serverError } from "@errors/system";
-import { vaNotFound } from "@errors/va";
 import { updateVABody, updateVAImgBody } from "@interfaces/va";
 import { vaImgUpdated, vaUpdated } from "@success/va";
 import { prisma } from "@utils/prisma";
@@ -12,18 +11,6 @@ async function updateVA(req: Request, res: Response) {
     const { more } = req.body as updateVABody;
 
     const id = parseInt(vaId);
-
-    if (isNaN(id)) {
-      return res.json(vaNotFound);
-    }
-
-    if (
-      (await prisma.vA.count({
-        where: { id },
-      })) === 0
-    ) {
-      return res.json(vaNotFound);
-    }
 
     await prisma.vA.update({
       where: { id },
@@ -46,18 +33,6 @@ async function updateVAImg(req: Request, res: Response) {
     const { imgUrl } = req.body as updateVAImgBody;
 
     const id = parseInt(vaId);
-
-    if (isNaN(id)) {
-      return res.json(vaNotFound);
-    }
-
-    if (
-      (await prisma.vA.count({
-        where: { id },
-      })) === 0
-    ) {
-      return res.json(vaNotFound);
-    }
 
     await prisma.vA.update({
       where: { id },

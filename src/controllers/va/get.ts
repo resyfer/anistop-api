@@ -1,5 +1,4 @@
 import { serverError } from "@errors/system";
-import { vaNotFound } from "@errors/va";
 import { VA } from "@prisma/client";
 import { JSONResponse } from "@repo-types/json";
 import { prisma } from "@utils/prisma";
@@ -10,18 +9,6 @@ async function getVA(req: Request, res: Response) {
     const { vaId } = req.params;
 
     const id = parseInt(vaId);
-
-    if (isNaN(id)) {
-      return res.json(vaNotFound);
-    }
-
-    if (
-      (await prisma.vA.count({
-        where: { id },
-      })) === 0
-    ) {
-      return res.json(vaNotFound);
-    }
 
     const va = await prisma.vA.findFirst({
       where: { id },

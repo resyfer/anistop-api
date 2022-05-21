@@ -1,4 +1,3 @@
-import { animeNotFound, wrongAnimeId } from "@errors/anime";
 import { animeSeasonNotFound } from "@errors/animeSeason";
 import {
   episodeTypeIncorrect,
@@ -25,15 +24,6 @@ async function addSeason(req: Request, res: Response) {
       req.body as seasonAddBody;
 
     const id = parseInt(animeId);
-
-    // Check for anime
-    if (isNaN(id)) {
-      return res.json(wrongAnimeId);
-    }
-
-    if ((await prisma.anime.count({ where: { id } })) === 0) {
-      return res.json(animeNotFound);
-    }
 
     // Season Check
     if ((await prisma.season.count({ where: { name, animeId: id } })) !== 0) {

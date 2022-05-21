@@ -1,4 +1,3 @@
-import { animeNotFound, wrongAnimeId } from "@errors/anime";
 import { characterExists } from "@errors/character";
 import { serverError } from "@errors/system";
 import { vaNotFound } from "@errors/va";
@@ -14,15 +13,6 @@ async function addCharacter(req: Request, res: Response) {
     const { name, description, vas } = req.body as addCharacterBody;
 
     const id = parseInt(animeId);
-
-    // Anime check
-    if (isNaN(id)) {
-      return res.json(wrongAnimeId);
-    }
-
-    if ((await prisma.anime.count({ where: { id } })) === 0) {
-      return res.json(animeNotFound);
-    }
 
     // Character check
     if (

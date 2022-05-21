@@ -1,4 +1,3 @@
-import { animeNotFound, wrongAnimeId } from "@errors/anime";
 import { serverError } from "@errors/system";
 import { updateAnimeBody } from "@interfaces/anime";
 import { animeUpdated } from "@success/anime";
@@ -18,14 +17,6 @@ async function updateAnime(req: Request, res: Response) {
     } = req.body as updateAnimeBody;
 
     const id = parseInt(animeId);
-
-    if (isNaN(id)) {
-      return res.json(wrongAnimeId);
-    }
-
-    if ((await prisma.anime.count({ where: { id } })) === 0) {
-      return res.json(animeNotFound);
-    }
 
     await prisma.anime.update({
       where: {
