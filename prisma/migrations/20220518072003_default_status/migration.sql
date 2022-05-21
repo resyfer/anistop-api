@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Anime" ALTER COLUMN "status" SET DEFAULT E'UPCOMING';
