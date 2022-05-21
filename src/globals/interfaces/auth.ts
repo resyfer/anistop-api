@@ -6,7 +6,7 @@ interface signUpBody {
   username: string;
   password: string;
   dob: string;
-  img: string | undefined;
+  imgUrl: string | undefined;
 }
 
 interface elevateLevel {

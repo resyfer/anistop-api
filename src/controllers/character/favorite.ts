@@ -1,4 +1,3 @@
-import { characterNotFound } from "@errors/character";
 import { serverError } from "@errors/system";
 import { User } from "@prisma/client";
 import { characterFavToggled } from "@success/character";

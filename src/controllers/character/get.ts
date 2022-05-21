@@ -1,4 +1,3 @@
-import { characterNotFound } from "@errors/character";
 import { serverError } from "@errors/system";
 import { Character } from "@prisma/client";
 import { JSONResponse } from "@repo-types/json";

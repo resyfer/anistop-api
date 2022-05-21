@@ -16,7 +16,7 @@ model User {
   email     String   @unique
   username  String   @unique
   password  String
-  img       String
+  imgUrl    String
   otpValue  String
   otpExpiry DateTime
   verified  Boolean  @default(false)

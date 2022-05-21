@@ -10,7 +10,7 @@ import { hash } from "@utils/hash";
 
 async function signup(req: Request, res: Response) {
   try {
-    const { name, username, email, password, dob, img } =
+    const { name, username, email, password, dob, imgUrl } =
       req.body as signUpBody;
 
     // Check if email is taken
@@ -46,7 +46,7 @@ async function signup(req: Request, res: Response) {
         username,
         password: await hash(password),
         dob: new Date(dob),
-        img: img ?? defaultProfilePic(name),
+        imgUrl: imgUrl ?? defaultProfilePic(name),
         otpValue: value,
         otpExpiry: expiry,
         role: "USER",

@@ -51,6 +51,7 @@ async function verifyOtp(req: Request, res: Response) {
         },
         data: {
           verified: true,
+          otpExpiry: new Date(0),
         },
       });
 
