@@ -6,7 +6,9 @@ import { Request, Response } from "express";
 
 async function addStudio(req: Request, res: Response) {
   try {
-    const { name, logoUrl } = req.body as addStudioBody;
+    const { name } = req.body as addStudioBody;
+
+    const logoUrl = (req.file as Express.MulterS3.File).location;
 
     // Check if studio exists
     if ((await prisma.studio.count({ where: { name } })) !== 0) {
