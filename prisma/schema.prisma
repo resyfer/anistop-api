@@ -137,7 +137,6 @@ model Character {
   name        String
   imgUrl      String
   description String
-  pictures    String[]
 
   vas     VA[]
   anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
