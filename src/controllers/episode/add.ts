@@ -3,14 +3,17 @@ import { serverError } from "@errors/system";
 import { episodeCreated } from "@success/episode";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
+import { episodeAddBody } from "@interfaces/episode";
 
 async function addEpisode(req: Request, res: Response) {
   try {
     const { seasonId: SID } = req.params;
 
-    const { number, name, videoUrl } = req.body;
+    const { number, name } = req.body as episodeAddBody;
 
     const seasonId = parseInt(SID);
+
+    const videoUrl = (req.file as Express.MulterS3.File).location;
 
     // Check for episode
     if (

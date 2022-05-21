@@ -12,7 +12,8 @@ import express from "express";
 import seasonRouter from "@routes/season";
 import characterRouter from "@routes/character";
 import { checkAnime } from "@middlewares/anime";
-import { upload } from "@utils/uploaad";
+import { upload } from "@utils/upload";
+import { uploadErrors } from "@middlewares/upload";
 
 const router = express.Router({ mergeParams: true });
 
@@ -28,6 +29,7 @@ router.patch(
   minPermission("MODERATOR"),
   checkAnime,
   upload.single("posterUrl"),
+  uploadErrors,
   updateAnimePosterUrl
 );
 router.patch(
@@ -36,6 +38,7 @@ router.patch(
   minPermission("MODERATOR"),
   checkAnime,
   upload.single("backgroundImgUrl"),
+  uploadErrors,
   updateAnimeBackgroundUrl
 );
 router.patch(

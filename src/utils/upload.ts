@@ -2,7 +2,10 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 
 import { initializeAWS, s3 } from "@utils/aws";
-import { FILE_UPLOAD_LIMIT } from "@globals/constants";
+import {
+  FILE_UPLOAD_LIMIT_IMG,
+  FILE_UPLOAD_LIMIT_VIDEO,
+} from "@globals/constants";
 
 let upload: multer.Multer;
 
@@ -20,8 +23,20 @@ function initializeMulter() {
         cb(null, Date.now().toString() + "_" + file.originalname);
       },
     }),
-    limits: {
-      fileSize: FILE_UPLOAD_LIMIT,
+    fileFilter: (_, file, cb) => {
+      const imgRE = /image\/[a-zA-Z0-9]*/;
+      const videoRE = /video\/[a-zA-Z0-9]*/;
+
+      if (imgRE.test(file.mimetype) && file.size > FILE_UPLOAD_LIMIT_IMG) {
+        cb(null, true);
+      } else if (
+        videoRE.test(file.mimetype) &&
+        file.size > FILE_UPLOAD_LIMIT_VIDEO
+      ) {
+        cb(null, true);
+      } else {
+        cb(new Error("File of large size or unknown type."));
+      }
     },
   });
 }
