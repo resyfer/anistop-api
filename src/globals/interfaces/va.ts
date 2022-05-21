@@ -12,8 +12,4 @@ interface updateVABody {
   more: string;
 }
 
-interface updateVAImgBody {
-  imgUrl: string;
-}
-
-export { addVABody, updateVABody, updateVAImgBody };
+export { addVABody, updateVABody };

@@ -1,5 +1,5 @@
 import { serverError } from "@errors/system";
-import { updateVABody, updateVAImgBody } from "@interfaces/va";
+import { updateVABody } from "@interfaces/va";
 import { vaImgUpdated, vaUpdated } from "@success/va";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
@@ -30,14 +30,12 @@ async function updateVAImg(req: Request, res: Response) {
   try {
     const { vaId } = req.params;
 
-    const { imgUrl } = req.body as updateVAImgBody;
-
     const id = parseInt(vaId);
 
     await prisma.vA.update({
       where: { id },
       data: {
-        imgUrl,
+        imgUrl: (req.file as Express.MulterS3.File).location,
       },
     });
 
