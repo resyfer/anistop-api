@@ -25,6 +25,7 @@ import animeRouter from "@routes/anime";
 import studioRouter from "@routes/studio";
 import animeSeasonRouter from "@routes/animeSeason";
 import vaRouter from "@routes/va";
+import userRouter from "@routes/user";
 
 //-------------------------END OF IMPORTS------------------------
 
@@ -57,6 +58,7 @@ app.use(`${ROOT}/anime`, animeRouter);
 app.use(`${ROOT}/studio`, studioRouter);
 app.use(`${ROOT}/anime_season`, animeSeasonRouter);
 app.use(`${ROOT}/va`, vaRouter);
+app.use(`${ROOT}/user`, userRouter);
 
 //-------------------------END OF ROUTERS------------------------
 
