@@ -1,10 +1,6 @@
 interface addVABody {
   name: string;
-  dob: {
-    year: number;
-    month: number;
-    day: number;
-  };
+  dob: string;
   more: string;
 }
 

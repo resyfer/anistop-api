@@ -17,7 +17,17 @@ import { uploadErrors } from "@middlewares/upload";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/add", isLoggedIn, minPermission(), addAnime);
+router.post(
+  "/add",
+  isLoggedIn,
+  minPermission(),
+  upload.fields([
+    { name: "posterUrl", maxCount: 1 },
+    { name: "backgroundImgUrl", maxCount: 1 },
+  ]),
+  uploadErrors,
+  addAnime
+);
 
 router.use("/:animeId/character", checkAnime, characterRouter);
 router.use("/:animeId/season", checkAnime, seasonRouter);

@@ -10,6 +10,9 @@ import { DateTime } from "luxon";
 async function addVA(req: Request, res: Response) {
   try {
     const { name, dob, more } = req.body as addVABody;
+    const imgUrl = (req.file as Express.MulterS3.File).location;
+
+    const [year, month, day] = dob.split("-");
 
     if ((await prisma.vA.count({ where: { name } })) !== 0) {
       return res.json(vaExists);
@@ -18,9 +21,16 @@ async function addVA(req: Request, res: Response) {
     await prisma.vA.create({
       data: {
         name,
-        dob: DateTime.fromObject(dob, { zone: "Asia/Tokyo" }).toJSDate(),
+        dob: DateTime.fromObject(
+          {
+            year: parseInt(year),
+            month: parseInt(month),
+            day: parseInt(day),
+          },
+          { zone: "Asia/Tokyo" }
+        ).toJSDate(),
         more,
-        imgUrl: defaultProfilePic(name),
+        imgUrl: imgUrl ?? defaultProfilePic(name),
       },
     });
 

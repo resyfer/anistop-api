@@ -1,4 +1,4 @@
 import { updateUserImg } from "./update";
-import { getUser } from "./get";
+import { getUser, getSelf } from "./get";
 
-export { updateUserImg, getUser };
+export { updateUserImg, getUser, getSelf };

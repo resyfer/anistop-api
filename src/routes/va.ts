@@ -7,7 +7,14 @@ import express from "express";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/add", isLoggedIn, minPermission("UPLOADER"), addVA);
+router.post(
+  "/add",
+  isLoggedIn,
+  minPermission("UPLOADER"),
+  upload.single("imgUrl"),
+  uploadErrors,
+  addVA
+);
 router.get("/:vaId", checkVA, getVA);
 router.patch(
   "/:vaId/img",

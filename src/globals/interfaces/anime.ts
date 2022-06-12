@@ -4,9 +4,9 @@ interface addAnimeBody {
   englishName: string;
   japaneseName: string;
   description: string;
-  genres: Genre[];
+  genres: string;
   country: Country;
-  keywords: string[];
+  keywords: string;
 }
 
 interface updateAnimeBody {

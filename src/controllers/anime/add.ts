@@ -1,6 +1,8 @@
+import { Genre } from ".prisma/client";
 import { animeExists } from "@errors/anime";
 import { serverError } from "@errors/system";
 import { addAnimeBody } from "@interfaces/anime";
+import { FileArray } from "@interfaces/upload";
 import { animeCreated } from "@success/anime";
 import { defaultProfilePic } from "@utils/img";
 import { prisma } from "@utils/prisma";
@@ -17,6 +19,10 @@ async function addAnime(req: Request, res: Response) {
       keywords,
     } = req.body as addAnimeBody;
 
+    const posterUrl = (req.files as FileArray)["posterUrl"][0].location;
+    const backgroundImgUrl = (req.files as FileArray)["backgroundImgUrl"][0]
+      .location;
+
     // Check anime exists
     if ((await prisma.anime.count({ where: { englishName } })) !== 0) {
       return res.json(animeExists);
@@ -32,11 +38,11 @@ async function addAnime(req: Request, res: Response) {
         englishName,
         japaneseName,
         description,
-        genres,
+        genres: genres.split(",") as Genre[],
         country,
-        keywords,
-        posterUrl: defaultProfilePic(englishName),
-        backgroundImgUrl: defaultProfilePic(englishName),
+        keywords: keywords.split(","),
+        posterUrl: posterUrl ?? defaultProfilePic(englishName),
+        backgroundImgUrl: backgroundImgUrl ?? defaultProfilePic(englishName),
       },
     });
 

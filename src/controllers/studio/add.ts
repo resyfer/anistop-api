@@ -1,6 +1,6 @@
 import { serverError } from "@errors/system";
-import { addStudioBody } from "@interfaces/studio";
 import { studioAdded } from "@success/studio";
+import { addStudioBody } from "@interfaces/studio";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
 
