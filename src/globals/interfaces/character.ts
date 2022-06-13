@@ -1,9 +1,7 @@
 interface addCharacterBody {
   name: string;
   description: string;
-  vas: {
-    name: string;
-  }[];
+  vas: string;
 }
 
 export { addCharacterBody };

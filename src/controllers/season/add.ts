@@ -79,7 +79,6 @@ async function addSeason(req: Request, res: Response) {
     }
 
     const animeSeasonExistence = await Promise.all(animeSeasonCheckPromises);
-    console.log(animeSeasonExistence);
     if (animeSeasonExistence.indexOf(0) !== -1) {
       return res.json(animeSeasonNotFound);
     }

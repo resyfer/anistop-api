@@ -14,7 +14,14 @@ import { uploadErrors } from "@middlewares/upload";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/add", isLoggedIn, minPermission("UPLOADER"), addCharacter);
+router.post(
+  "/add",
+  isLoggedIn,
+  minPermission("UPLOADER"),
+  upload.single("imgUrl"),
+  uploadErrors,
+  addCharacter
+);
 router.get("/all", getCharactersByAnime);
 router.patch("/:characterId/fav_toggle", characterCheck, toggleFavChar);
 router.patch(
@@ -22,7 +29,7 @@ router.patch(
   isLoggedIn,
   minPermission("UPLOADER"),
   characterCheck,
-  upload.single("posterUrl"),
+  upload.single("imgUrl"),
   uploadErrors,
   updateCharacterImg
 );

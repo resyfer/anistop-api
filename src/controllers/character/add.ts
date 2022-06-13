@@ -10,9 +10,11 @@ import { Request, Response } from "express";
 async function addCharacter(req: Request, res: Response) {
   try {
     const { animeId } = req.params;
-    const { name, description, vas } = req.body as addCharacterBody;
+    const { name, description, vas: vasString } = req.body as addCharacterBody;
 
     const id = parseInt(animeId);
+
+    const vas = vasString.split(",").map((va) => ({ name: va }));
 
     // Character check
     if (
@@ -41,7 +43,9 @@ async function addCharacter(req: Request, res: Response) {
     await prisma.character.create({
       data: {
         name,
-        imgUrl: defaultProfilePic(name),
+        imgUrl:
+          (req.file as Express.MulterS3.File).location ??
+          defaultProfilePic(name),
         description,
 
         anime: {
