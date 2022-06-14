@@ -1,7 +1,7 @@
 import { addCharacter } from "./add";
 import { getCharacter, getCharactersByAnime } from "./get";
 import { deleteCharacter } from "./delete";
-import { toggleFavChar } from "./favorite";
+import { toggleFavChar, checkFavStatus } from "./favorite";
 import { updateCharacterImg } from "./update";
 
 export {
@@ -10,5 +10,6 @@ export {
   getCharactersByAnime,
   deleteCharacter,
   toggleFavChar,
+  checkFavStatus,
   updateCharacterImg,
 };

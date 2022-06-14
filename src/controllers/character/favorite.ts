@@ -1,5 +1,6 @@
 import { serverError } from "@errors/system";
 import { User } from "@prisma/client";
+import { JSONResponse } from "@repo-types/json";
 import { characterFavToggled } from "@success/character";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
@@ -49,4 +50,27 @@ async function toggleFavChar(req: Request, res: Response) {
   }
 }
 
-export { toggleFavChar };
+async function checkFavStatus(req: Request, res: Response) {
+  try {
+    const { characterId: CID } = req.params;
+
+    const characterId = parseInt(CID);
+
+    const favCount = await prisma.characterFavorite.count({
+      where: {
+        userId: (req.user as User).id,
+        characterId,
+      },
+    });
+
+    return res.json({
+      success: true,
+      message: favCount !== 0,
+    } as JSONResponse<boolean>);
+  } catch (err) {
+    console.log(err);
+    return res.json(serverError);
+  }
+}
+
+export { toggleFavChar, checkFavStatus };

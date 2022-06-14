@@ -1,5 +1,6 @@
 import {
   addCharacter,
+  checkFavStatus,
   deleteCharacter,
   getCharacter,
   getCharactersByAnime,
@@ -23,6 +24,7 @@ router.post(
   addCharacter
 );
 router.get("/all", getCharactersByAnime);
+router.get("/:characterId/fav", characterCheck, isLoggedIn, checkFavStatus);
 router.patch("/:characterId/fav_toggle", characterCheck, toggleFavChar);
 router.patch(
   "/:characterId/img",

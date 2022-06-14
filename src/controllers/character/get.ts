@@ -15,6 +15,8 @@ async function getCharacter(req: Request, res: Response) {
         id: characterId,
       },
       include: {
+        anime: true,
+        vas: true,
         _count: {
           select: {
             characterFavorites: true,
@@ -26,7 +28,7 @@ async function getCharacter(req: Request, res: Response) {
     return res.json({
       success: true,
       message: character,
-    } as JSONResponse<Character>);
+    } as JSONResponse<typeof character>);
   } catch (err) {
     console.log(err);
     return res.json(serverError);
