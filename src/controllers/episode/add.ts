@@ -9,16 +9,15 @@ async function addEpisode(req: Request, res: Response) {
   try {
     const { seasonId: SID } = req.params;
 
-    const { number, name } = req.body as episodeAddBody;
+    const { number: EID, name } = req.body as episodeAddBody;
 
     const seasonId = parseInt(SID);
+    const number = parseInt(EID);
 
     const videoUrl = (req.file as Express.MulterS3.File).location;
 
     // Check for episode
-    if (
-      (await prisma.episode.count({ where: { number, name, videoUrl } })) !== 0
-    ) {
+    if ((await prisma.episode.count({ where: { number, seasonId } })) !== 0) {
       return res.json(episodeExists);
     }
 

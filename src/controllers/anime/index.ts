@@ -5,7 +5,7 @@ import {
   updateAnimeBackgroundUrl,
 } from "./update";
 import { deleteAnime } from "./delete";
-import { getAnime } from "./get";
+import { getAnime, searchAnime } from "./get";
 
 export {
   addAnime,
@@ -14,4 +14,5 @@ export {
   updateAnimeBackgroundUrl,
   deleteAnime,
   getAnime,
+  searchAnime,
 };

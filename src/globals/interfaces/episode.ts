@@ -1,5 +1,5 @@
 interface episodeAddBody {
-  number: number;
+  number: string;
   name: string;
 }
 

@@ -21,7 +21,7 @@ router.use("/:seasonId/episode", checkSeason, episodeRouter);
 
 router.patch("/:seasonId/rating", isLoggedIn, checkSeason, updateRating);
 router.get("/:seasonId/status", isLoggedIn, checkSeason, getEpisodeViewStatus);
-router.get("/:seasonId", getSeason);
+router.get("/:seasonId", isLoggedIn, getSeason);
 router.patch(
   "/:seasonId",
   isLoggedIn,

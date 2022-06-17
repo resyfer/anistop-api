@@ -1,8 +1,10 @@
 import {
   addEpisode,
   deleteEpisode,
+  getAllEpisodes,
   getEpisodeDetails,
   getEpisodeVideoUrl,
+  getEpisodeWatchDetails,
 } from "@controllers/episode";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import { checkEpisode } from "@middlewares/episode";
@@ -20,6 +22,8 @@ router.post(
   uploadErrors,
   addEpisode
 );
+router.get("/all", getAllEpisodes);
+router.get("/watch_details", isLoggedIn, getEpisodeWatchDetails);
 router.get("/:episodeNumber/details", checkEpisode, getEpisodeDetails);
 router.get("/:episodeNumber/video", checkEpisode, getEpisodeVideoUrl);
 router.delete(

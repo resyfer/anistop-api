@@ -5,6 +5,7 @@ import {
   updateAnime,
   updateAnimePosterUrl,
   updateAnimeBackgroundUrl,
+  searchAnime,
 } from "@controllers/anime";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import express from "express";
@@ -28,6 +29,8 @@ router.post(
   uploadErrors,
   addAnime
 );
+
+router.get("/search", isLoggedIn, searchAnime);
 
 router.use("/:animeId/character", checkAnime, characterRouter);
 router.use("/:animeId/season", checkAnime, seasonRouter);

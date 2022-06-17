@@ -15,6 +15,34 @@ async function getSeason(req: Request, res: Response) {
       where: {
         id: seasonId,
       },
+      include: {
+        anime: {
+          select: {
+            id: true,
+            backgroundImgUrl: true,
+            posterUrl: true,
+            englishName: true,
+            japaneseName: true,
+          },
+        },
+        episodes: {
+          select: {
+            id: true,
+            name: true,
+            number: true,
+            viewCount: true,
+            views: {
+              distinct: ["viewerId", "episodeId"],
+              where: {
+                viewerId: (req.user as User).id,
+              },
+            },
+          },
+          orderBy: {
+            number: "asc",
+          },
+        },
+      },
     });
 
     const rating = await prisma.userRating.aggregate({
