@@ -1,3 +1,4 @@
 import { addAnimeSeason } from "./add";
+import { getAnimeSeasonAnime } from "./get";
 
-export { addAnimeSeason };
+export { addAnimeSeason, getAnimeSeasonAnime };
