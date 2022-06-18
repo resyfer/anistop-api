@@ -2,6 +2,7 @@ import {
   addStudio,
   getStudio,
   getStudioAnimes,
+  updateStudio,
   updateStudioLogo,
 } from "@controllers/studio";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
@@ -22,9 +23,19 @@ router.post(
 );
 router.patch(
   "/:studioId/logo",
+  checkStudio,
+  isLoggedIn,
+  minPermission("MODERATOR"),
   upload.single("logoUrl"),
   uploadErrors,
   updateStudioLogo
+);
+router.patch(
+  "/:studioId",
+  isLoggedIn,
+  minPermission("MODERATOR"),
+  checkStudio,
+  updateStudio
 );
 router.get("/:studioId/animes", checkStudio, getStudioAnimes);
 router.get("/:studioId", checkStudio, getStudio);

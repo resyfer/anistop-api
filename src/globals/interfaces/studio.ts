@@ -2,4 +2,8 @@ interface addStudioBody {
   name: string;
 }
 
-export { addStudioBody };
+interface updateStudioBody {
+  name: string;
+}
+
+export { addStudioBody, updateStudioBody };

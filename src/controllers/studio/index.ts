@@ -1,5 +1,11 @@
 import { addStudio } from "./add";
 import { getStudio, getStudioAnimes } from "./get";
-import { updateStudioLogo } from "./update";
+import { updateStudio, updateStudioLogo } from "./update";
 
-export { addStudio, getStudio, getStudioAnimes, updateStudioLogo };
+export {
+  addStudio,
+  getStudio,
+  getStudioAnimes,
+  updateStudio,
+  updateStudioLogo,
+};
