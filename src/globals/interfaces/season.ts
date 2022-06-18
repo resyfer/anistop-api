@@ -19,6 +19,14 @@ interface seasonAddBody {
 
 interface seasonUpdateBody {
   status: Status;
+  name: string;
+  seasonType: SeasonType;
+  episodeType: EpisodeType;
+  animeSeasons: {
+    year: number;
+    seasonOfYear: SeasonOfYear;
+  }[];
+  studios: string[];
 }
 
 interface studioConnectionOption {
@@ -34,7 +42,7 @@ interface animeSeasonConnectionOption {
 }
 
 interface updateRatingBody {
-  rating: number;
+  rating: string;
 }
 
 interface ratingPromise {

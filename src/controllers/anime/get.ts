@@ -105,6 +105,19 @@ async function searchAnime(req: Request, res: Response) {
               },
             },
           },
+          {
+            seasons: {
+              some: {
+                studios: {
+                  some: {
+                    name: {
+                      search: queryString,
+                    },
+                  },
+                },
+              },
+            },
+          },
         ],
       },
     });

@@ -42,6 +42,17 @@ async function getSeason(req: Request, res: Response) {
             number: "asc",
           },
         },
+        studios: {
+          select: {
+            name: true,
+          },
+        },
+        animeSeasons: {
+          select: {
+            year: true,
+            seasonOfYear: true,
+          },
+        },
       },
     });
 
@@ -68,10 +79,13 @@ async function getSeason(req: Request, res: Response) {
       },
     });
 
+    const studios = season!.studios.map((studio) => studio.name);
+
     return res.json({
       success: true,
       message: {
         ...season,
+        studios,
         ...rating,
       },
     } as JSONResponse<seasonData>);

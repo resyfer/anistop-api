@@ -2,7 +2,7 @@ import { addSeason } from "./add";
 import { getSeason, getSeasonsByAnime, getEpisodeViewStatus } from "./get";
 import { updateSeason } from "./update";
 import { deleteSeason } from "./delete";
-import { updateRating } from "./rating";
+import { updateRating, getUserRating } from "./rating";
 
 export {
   addSeason,
@@ -12,4 +12,5 @@ export {
   deleteSeason,
   getEpisodeViewStatus,
   updateRating,
+  getUserRating,
 };

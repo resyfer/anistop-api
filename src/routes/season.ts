@@ -6,6 +6,7 @@ import {
   getSeasonsByAnime,
   updateSeason,
   updateRating,
+  getUserRating,
 } from "@controllers/season";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
 import express from "express";
@@ -20,6 +21,8 @@ router.get("/all", getSeasonsByAnime);
 router.use("/:seasonId/episode", checkSeason, episodeRouter);
 
 router.patch("/:seasonId/rating", isLoggedIn, checkSeason, updateRating);
+router.get("/:seasonId/rating", isLoggedIn, checkSeason, getUserRating);
+
 router.get("/:seasonId/status", isLoggedIn, checkSeason, getEpisodeViewStatus);
 router.get("/:seasonId", isLoggedIn, getSeason);
 router.patch(
