@@ -1,3 +1,4 @@
+import { animeExists } from "@errors/anime";
 import { serverError } from "@errors/system";
 import { updateAnimeBody } from "@interfaces/anime";
 import {
@@ -16,11 +17,36 @@ async function updateAnime(req: Request, res: Response) {
       genres,
       keywords,
       country,
-      posterUrl,
-      backgroundImgUrl,
+      englishName,
+      japaneseName,
     } = req.body as updateAnimeBody;
 
     const id = parseInt(animeId);
+
+    // Check anime
+    if (
+      (await prisma.anime.count({
+        where: {
+          OR: [
+            {
+              englishName,
+            },
+            {
+              japaneseName,
+            },
+          ],
+          NOT: {
+            id,
+          },
+        },
+      })) !== 0
+    ) {
+      return res.json(animeExists);
+    }
+
+    // TODO: Check genres
+
+    // TODO: Check country
 
     await prisma.anime.update({
       where: {
@@ -31,8 +57,8 @@ async function updateAnime(req: Request, res: Response) {
         genres,
         keywords,
         country,
-        posterUrl,
-        backgroundImgUrl,
+        englishName,
+        japaneseName,
       },
     });
 

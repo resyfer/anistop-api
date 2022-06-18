@@ -14,8 +14,8 @@ interface updateAnimeBody {
   genres?: Genre[];
   country?: Country;
   keywords?: string[];
-  posterUrl?: string;
-  backgroundImgUrl?: string;
+  englishName: string;
+  japaneseName: string;
 }
 
 export { addAnimeBody, updateAnimeBody };

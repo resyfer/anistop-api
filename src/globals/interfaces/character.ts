@@ -4,4 +4,10 @@ interface addCharacterBody {
   vas: string;
 }
 
-export { addCharacterBody };
+interface updateCharacterBody {
+  name: string;
+  description: string;
+  vas: string[];
+}
+
+export { addCharacterBody, updateCharacterBody };

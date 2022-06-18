@@ -1,5 +1,5 @@
 import { serverError } from "@errors/system";
-import { Anime, Studio } from "@prisma/client";
+import { Anime } from "@prisma/client";
 import { JSONResponse } from "@repo-types/json";
 import { prisma } from "@utils/prisma";
 import { Request, Response } from "express";
@@ -16,10 +16,30 @@ async function getStudio(req: Request, res: Response) {
       },
     });
 
+    const anime = await prisma.anime.findMany({
+      where: {
+        seasons: {
+          some: {
+            studios: {
+              some: {
+                id,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+
     return res.json({
       success: true,
-      message: studio,
-    } as JSONResponse<Studio>);
+      message: {
+        ...studio,
+        anime,
+      },
+    } as JSONResponse<any>);
   } catch (err) {
     console.log(err);
     return res.json(serverError);

@@ -5,6 +5,7 @@ import {
   getCharacter,
   getCharactersByAnime,
   toggleFavChar,
+  updateCharacter,
   updateCharacterImg,
 } from "@controllers/character";
 import { isLoggedIn, minPermission } from "@middlewares/auth";
@@ -36,6 +37,15 @@ router.patch(
   updateCharacterImg
 );
 router.get("/:characterId", characterCheck, getCharacter);
+router.patch(
+  "/:characterId",
+  isLoggedIn,
+  minPermission("UPLOADER"),
+  characterCheck,
+  upload.single("imgUrl"),
+  uploadErrors,
+  updateCharacter
+);
 router.delete(
   "/:characterId",
   isLoggedIn,
