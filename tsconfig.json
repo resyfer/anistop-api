@@ -10,6 +10,8 @@
       "@controllers/*": ["./src/controllers/*"],
       "@utils/*": ["./src/utils/*"],
       "@middlewares/*": ["./src/middlewares/*"],
+      "@types/*": ["./node_modules/@types"],
+      "@prisma/*": ["./node_modules/@prisma"]
     },
     "incremental": true,
     "target": "ES6",
