@@ -10,7 +10,7 @@
     "prisma:format": "prisma format",
     "lint": "eslint . --ext .ts --fix",
     "pre-commit": "lint-staged",
-    "heroku-postbuild": "prisma db push && yarn build"
+    "heroku-postbuild": "yarn prisma:generate && yarn build"
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
