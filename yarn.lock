@@ -668,7 +668,7 @@ chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chokidar@^3.5.2:
+chokidar@^3.5.2, chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
   integrity sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==
@@ -759,6 +759,11 @@ commander@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
+
+commander@^9.0.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-9.3.0.tgz#f619114a5a2d2054e0d9ff1b31d5ccf89255e26b"
+  integrity sha512-hv95iU5uXPbK83mjrJKuZyFM/LBAoCV/XhVGkS5Je6tl7sxr6A0ITMw5WoRV46/UaJ46Nllm3Xt7IaJhXTIkzw==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1403,7 +1408,7 @@ globals@^13.6.0, globals@^13.9.0:
   dependencies:
     type-fest "^0.20.2"
 
-globby@^11.1.0:
+globby@^11.0.4, globby@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/globby/-/globby-11.1.0.tgz#bd4be98bb042f83d796f7e3811991fbe82a0d34b"
   integrity sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==
@@ -1982,6 +1987,11 @@ multer@^1.4.4:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
+mylas@^2.1.9:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/mylas/-/mylas-2.1.11.tgz#1827462533977bed1c4251317aa84254e3ca94c7"
+  integrity sha512-krnPUl3n9/k52FGCltWMYcqp9SttxjRJEy0sWLk+g7mIa7wnZrmNSZ40Acx7ghzRSOsxt2rEqMbaq4jWlnTDKg==
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -2210,6 +2220,13 @@ pidtree@^0.5.0:
   resolved "https://registry.yarnpkg.com/pidtree/-/pidtree-0.5.0.tgz#ad5fbc1de78b8a5f99d6fbdd4f6e4eee21d1aca1"
   integrity sha512-9nxspIM7OpZuhBxPg73Zvyq7j1QMPMPsGKTqRc2XOaFQauDvoNz9fM1Wdkjmeo7l9GXOZiRs97sPkuayl39wjA==
 
+plimit-lit@^1.2.6:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/plimit-lit/-/plimit-lit-1.2.7.tgz#ae16e6e5eadf87924e574337b4c01d140b986c4a"
+  integrity sha512-ce/kfCHFJ2sIK1IuSnXfVBxoMaIwuAF9J5NjFwxng1j+r8XguGxXMK87dBSODQfY+se2Raj/grpx5EAK9kapEA==
+  dependencies:
+    queue-lit "^1.2.8"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -2286,6 +2303,11 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
+
+queue-lit@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/queue-lit/-/queue-lit-1.2.8.tgz#2bafa0eafb8db0380ab2301d90c52a065c4baad0"
+  integrity sha512-CR0/8Xb0oRk4rZrteSZcjrrPhWfXGBAWa/ATxYCqpdM4fnZu8M3zob5ajLxLUCXmpOzhHZ1+zgscrlzQtEOM0A==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -2745,6 +2767,18 @@ ts-node@^10.7.0:
     make-error "^1.1.1"
     v8-compile-cache-lib "^3.0.0"
     yn "3.1.1"
+
+tsc-alias@^1.6.11:
+  version "1.6.11"
+  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.6.11.tgz#d6d83f030ad11f48e4ead8ec5729929e5e60519b"
+  integrity sha512-mXEM21WriTJMQyo07B4Kc2nNFFk/1qOjU+jZ0ymXOyLz/A8J+dIBkimqZrh3s/x1qLGoJ1cNZQxa8GGoWOGX1Q==
+  dependencies:
+    chokidar "^3.5.3"
+    commander "^9.0.0"
+    globby "^11.0.4"
+    mylas "^2.1.9"
+    normalize-path "^3.0.0"
+    plimit-lit "^1.2.6"
 
 tsconfig-paths@^4.0.0:
   version "4.0.0"
