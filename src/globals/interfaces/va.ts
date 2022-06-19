@@ -5,6 +5,8 @@ interface addVABody {
 }
 
 interface updateVABody {
+  name: string;
+  dob: string;
   more: string;
 }
 

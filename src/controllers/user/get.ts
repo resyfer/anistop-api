@@ -19,15 +19,41 @@ async function getUser(req: Request, res: Response) {
           select: {
             character: {
               select: {
+                id: true,
                 name: true,
                 imgUrl: true,
+                animeId: true,
               },
             },
           },
         },
         ratings: {
           select: {
-            season: true,
+            season: {
+              include: {
+                anime: {
+                  select: {
+                    id: true,
+                    englishName: true,
+                    posterUrl: true,
+                  },
+                },
+                episodes: {
+                  include: {
+                    views: {
+                      where: {
+                        viewerId: id,
+                      },
+                      distinct: ["viewerId", "episodeId"],
+                    },
+                  },
+                },
+              },
+            },
+            rating: true,
+          },
+          orderBy: {
+            rating: "desc",
           },
         },
       },
