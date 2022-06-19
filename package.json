@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "ts-node ./src/server.ts",
+    "start": "npx ts-node ./src/server.ts",
     "dev": "nodemon --exec ts-node ./src/server.ts",
     "build": "tsc",
     "prepare": "husky install",
