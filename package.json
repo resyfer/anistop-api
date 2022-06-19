@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node ./dist/src/server.js",
+    "start": "ts-node ./src/server.ts",
     "dev": "nodemon --exec ts-node ./src/server.ts",
     "build": "tsc",
     "prepare": "husky install",
@@ -10,7 +10,7 @@
     "prisma:format": "prisma format",
     "lint": "eslint . --ext .ts --fix",
     "pre-commit": "lint-staged",
-    "heroku-postbuild": "prisma db push && yarn dev"
+    "heroku-postbuild": "prisma db push"
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
